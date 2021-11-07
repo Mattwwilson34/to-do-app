@@ -126,7 +126,37 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n\n\n\n//# sourceURL=webpack://to-do-app/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _modules_demo_project__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/demo-project */ \"./src/modules/demo-project.js\");\n/* harmony import */ var _modules_to_do_class__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/to-do-class */ \"./src/modules/to-do-class.js\");\n\n\n\n\nfor (let i = 0; i < 4; i++) {\n    const toDo = new _modules_to_do_class__WEBPACK_IMPORTED_MODULE_2__.ToDo('Walk the dog', 'filler text', '12/2/2009', 'low');\n    _modules_demo_project__WEBPACK_IMPORTED_MODULE_1__.demoProject.toDos.push(toDo);\n}\n\nconsole.log(_modules_demo_project__WEBPACK_IMPORTED_MODULE_1__.demoProject);\n\n\n//# sourceURL=webpack://to-do-app/./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/modules/demo-project.js":
+/*!*************************************!*\
+  !*** ./src/modules/demo-project.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"demoProject\": () => (/* binding */ demoProject)\n/* harmony export */ });\n/* harmony import */ var _project_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./project-class */ \"./src/modules/project-class.js\");\n\n\nconst demoProject = new _project_class__WEBPACK_IMPORTED_MODULE_0__.Project('Demo', 'Demo project', '12/2/2021', 'low');\n\n\n\n\n//# sourceURL=webpack://to-do-app/./src/modules/demo-project.js?");
+
+/***/ }),
+
+/***/ "./src/modules/project-class.js":
+/*!**************************************!*\
+  !*** ./src/modules/project-class.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"Project\": () => (/* binding */ Project)\n/* harmony export */ });\nclass Project {\n    constructor(title, description, dueDate, priority) {\n        this.title = title;\n        this.description = description;\n        this.dueDate = dueDate;\n        this.priority = priority;\n        this.toDos = [];\n    }\n\n    get title() {\n        return this._title;\n    }\n\n    set title(value) {\n        this._title = value;\n    }\n    get description() {\n        return this._description;\n    }\n\n    set description(value) {\n        this._description = value;\n    }\n    get dueDate() {\n        return this._dueDate;\n    }\n\n    set dueDate(value) {\n        this._dueDate = value;\n    }\n    get priority() {\n        return this._priority;\n    }\n\n    set priority(value) {\n        this._priority = value;\n    }\n}\n\n\n\n\n//# sourceURL=webpack://to-do-app/./src/modules/project-class.js?");
+
+/***/ }),
+
+/***/ "./src/modules/to-do-class.js":
+/*!************************************!*\
+  !*** ./src/modules/to-do-class.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"ToDo\": () => (/* binding */ ToDo)\n/* harmony export */ });\nclass ToDo {\n    constructor(title, description, dueDate, priority) {\n        this.title = title;\n        this.description = description;\n        this.dueDate = dueDate;\n        this.priority = priority;\n        this.toDos = [];\n    }\n\n    get title() {\n        return this._title;\n    }\n\n    set title(value) {\n        this._title = value;\n    }\n    get description() {\n        return this._description;\n    }\n\n    set description(value) {\n        this._description = value;\n    }\n    get dueDate() {\n        return this._dueDate;\n    }\n\n    set dueDate(value) {\n        this._dueDate = value;\n    }\n    get priority() {\n        return this._priority;\n    }\n\n    set priority(value) {\n        this._priority = value;\n    }\n}\n\n\n\n\n//# sourceURL=webpack://to-do-app/./src/modules/to-do-class.js?");
 
 /***/ }),
 
