@@ -22,4 +22,32 @@ html,
 body {
     height: 100vh;
     background-color: var(--violet);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#app-container {
+    height: 900px;
+    width: 1880px;
+    background-color: var(--gray);
+    border-radius: 10px;
+}
+
+#project-container {
+    height: 100%;
+    width: 300px;
+    border-right: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+#project-title-container {
+    height: 100px;
+    width: 300px;
+}
+
+.project-title {
+    margin: 0;
+    text-align: center;
+    font-size: 28px;
+    border-bottom: solid 0.5px rgba(255, 255, 255, 0.5);
 }
