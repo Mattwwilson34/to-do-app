@@ -4,7 +4,7 @@ class Project {
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
-        this.toDos = [];
+        this.todos = [];
     }
 
     get title() {

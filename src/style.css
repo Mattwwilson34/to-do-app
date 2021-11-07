@@ -1,6 +1,8 @@
 @font-face {
     font-family: 'Nunito-Regular';
     src: url('./fonts/Nunito-Regular.ttf') format('ttf');
+    font-family: 'Nunito-Bold';
+    src: url('./fonts/Nunito-Bold.ttf') format('ttf');
 }
 
 :root {
@@ -10,6 +12,7 @@
     --gray: #c1c8e4;
     --violet: #8860d0;
     --to-do-bg: #e0e4f6;
+    --active-project: #a4a8bc;
 }
 
 *,
@@ -39,7 +42,6 @@ body {
 #project-container {
     height: 100%;
     width: 300px;
-    border-right: 2px solid rgba(255, 255, 255, 0.5);
 }
 
 #project-header-container {
@@ -48,12 +50,15 @@ body {
     align-items: flex-end;
     height: 50px;
     width: 300px;
-    border-bottom: solid 0.5px rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid black;
+    border-top-left-radius: 10px;
+    background-color: var(--dark-blue);
 }
 
 #to-do-section-container {
     width: 100%;
     height: 100%;
+    border-left: 1px solid black;
 }
 
 #project-title-container {
@@ -61,23 +66,32 @@ body {
     justify-content: center;
     align-items: flex-end;
     height: 50px;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid black;
+    border-top-right-radius: 10px;
+    background-color: var(--dark-blue);
 }
 
 #to-do-container {
     width: 100%;
-    margin-top: 20px;
 }
 
 .project-header {
     margin: 0;
     text-align: center;
+    font-family: 'Nunito-Bold';
     font-size: 28px;
 }
 .project-title {
     margin: 0;
+    font-family: 'Nunito-Bold';
     font-size: 28px;
     text-align: center;
+}
+
+.project {
+    font-size: 28px;
+    padding: 10px;
+    background-color: var(--active-project);
 }
 
 .to-do {
@@ -90,4 +104,14 @@ body {
     background-color: var(--to-do-bg);
     border-bottom: 1px solid rgba(218, 217, 217, 0.7);
     list-style-type: none;
+}
+
+.to-do:hover {
+    background-color: var(--lighter-blue);
+}
+
+input.to-do-checkbox {
+    margin: 0 15px;
+    width: 20px;
+    height: 20px;
 }
