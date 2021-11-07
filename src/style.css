@@ -3,6 +3,14 @@
     src: url('./fonts/Nunito-Regular.ttf') format('ttf');
 }
 
+:root {
+    --dark-blue: #5680e9;
+    --green-blue: #84ceeb;
+    --lighter-blue: #5ab9ea;
+    --gray: #c1c8e4;
+    --violet: #8860d0;
+}
+
 *,
 *::before,
 *::after {
@@ -13,4 +21,5 @@
 html,
 body {
     height: 100vh;
+    background-color: var(--violet);
 }
