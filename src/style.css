@@ -33,7 +33,7 @@ body {
 
 #app-container {
     height: 900px;
-    width: 1880px;
+    width: 1000px;
     display: flex;
     background-color: var(--gray);
     border-radius: 10px;

@@ -35,6 +35,18 @@ class Project {
     set priority(value) {
         this._priority = value;
     }
+
+    store() {
+        localStorage.setItem(this.title, JSON.stringify(this));
+    }
+
+    getFromStorage() {
+        localStorage.getItem(JSON.parse(this.title));
+    }
+
+    printInfo() {
+        console.log(this);
+    }
 }
 
 export { Project };

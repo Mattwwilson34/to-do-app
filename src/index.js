@@ -7,6 +7,7 @@ const App = {
         const demoProject = buildDemoProject();
         DomHandler.renderProject(demoProject);
         DomHandler.renderAllProjectTodos(demoProject);
+        demoProject.store();
     },
 };
 
