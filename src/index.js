@@ -1,12 +1,13 @@
 import './style.css';
 import { buildDemoProject } from './modules/demo-project';
-import { DomHandler } from './modules/dom-handler';
+import { ProjectDomHandler } from './modules/project-dom-handler';
+import { TodoDomHandler } from './modules/todo-dom-handler';
 
 const App = {
     init: function () {
         const demoProject = buildDemoProject();
-        DomHandler.renderProject(demoProject);
-        DomHandler.renderAllProjectTodos(demoProject);
+        ProjectDomHandler.render(demoProject);
+        TodoDomHandler.renderAllProjectTodos(demoProject);
         demoProject.store();
     },
 };

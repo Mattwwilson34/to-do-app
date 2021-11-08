@@ -126,7 +126,7 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _modules_demo_project__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/demo-project */ \"./src/modules/demo-project.js\");\n/* harmony import */ var _modules_dom_handler__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/dom-handler */ \"./src/modules/dom-handler.js\");\n\n\n\n\nconst App = {\n    init: function () {\n        const demoProject = (0,_modules_demo_project__WEBPACK_IMPORTED_MODULE_1__.buildDemoProject)();\n        _modules_dom_handler__WEBPACK_IMPORTED_MODULE_2__.DomHandler.renderProject(demoProject);\n        _modules_dom_handler__WEBPACK_IMPORTED_MODULE_2__.DomHandler.renderAllProjectTodos(demoProject);\n        demoProject.store();\n    },\n};\n\nApp.init();\n\n\n//# sourceURL=webpack://to-do-app/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _modules_demo_project__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/demo-project */ \"./src/modules/demo-project.js\");\n/* harmony import */ var _modules_project_dom_handler__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/project-dom-handler */ \"./src/modules/project-dom-handler.js\");\n/* harmony import */ var _modules_todo_dom_handler__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/todo-dom-handler */ \"./src/modules/todo-dom-handler.js\");\n\n\n\n\n\nconst App = {\n    init: function () {\n        const demoProject = (0,_modules_demo_project__WEBPACK_IMPORTED_MODULE_1__.buildDemoProject)();\n        _modules_project_dom_handler__WEBPACK_IMPORTED_MODULE_2__.ProjectDomHandler.render(demoProject);\n        _modules_todo_dom_handler__WEBPACK_IMPORTED_MODULE_3__.TodoDomHandler.renderAllProjectTodos(demoProject);\n        demoProject.store();\n    },\n};\n\nApp.init();\n\n\n//# sourceURL=webpack://to-do-app/./src/index.js?");
 
 /***/ }),
 
@@ -140,16 +140,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
-/***/ "./src/modules/dom-handler.js":
-/*!************************************!*\
-  !*** ./src/modules/dom-handler.js ***!
-  \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"DomHandler\": () => (/* binding */ DomHandler)\n/* harmony export */ });\nconst DomHandler = {\n    //.Project Dom handling\n\n    renderProject: function (project) {\n        this.createProjectElements();\n        this.addProjectClasses();\n        this.addProjectTitle(project.title);\n        this.appendProject();\n    },\n\n    createProjectElements: function () {\n        this.projectContainer = document.createElement('div');\n    },\n    addProjectClasses: function () {\n        this.projectContainer.classList = 'project';\n    },\n\n    addProjectTitle: function (title) {\n        this.projectContainer.textContent = title;\n    },\n\n    appendProject: function () {\n        const appProjectContainer = document.getElementById('project-container');\n        const newProjectBtnContainer = document.getElementById('new-project-btn-container');\n        appProjectContainer.insertBefore(this.projectContainer, newProjectBtnContainer);\n    },\n\n    //.Todo Dom handling\n\n    renderAllProjectTodos: function (project) {\n        project.todos.forEach((todo) => {\n            this.renderTodo(todo);\n        });\n    },\n\n    renderTodo: function (todo) {\n        this.createTodoElements();\n        this.setAttributes();\n        this.addTodoClasses();\n        this.addTodoTitle(todo.title);\n        this.appendTodo();\n    },\n    createTodoElements() {\n        this.todoContainer = document.createElement('div');\n        this.todo = document.createElement('li');\n        this.todoCheckbox = document.createElement('input');\n        this.todoDeleteBtn = document.createElement('button');\n    },\n    setAttributes: function () {\n        this.todoCheckbox.setAttribute('type', 'checkbox');\n    },\n\n    addTodoClasses: function () {\n        this.todoContainer.classList = 'to-do';\n        this.todoCheckbox.classList = 'to-do-checkbox';\n        this.todoDeleteBtn.classList = 'to-do-delete-btn';\n    },\n    addTodoTitle: function (title) {\n        this.todo.textContent = title;\n        this.todoDeleteBtn.textContent = 'delete';\n    },\n    appendTodo: function () {\n        const appToDoContainer = document.getElementById('to-do-container');\n        this.todoContainer.append(this.todoCheckbox, this.todo, this.todoDeleteBtn);\n        appToDoContainer.append(this.todoContainer);\n    },\n};\n\n\n\n\n//# sourceURL=webpack://to-do-app/./src/modules/dom-handler.js?");
-
-/***/ }),
-
 /***/ "./src/modules/project-class.js":
 /*!**************************************!*\
   !*** ./src/modules/project-class.js ***!
@@ -160,6 +150,16 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
+/***/ "./src/modules/project-dom-handler.js":
+/*!********************************************!*\
+  !*** ./src/modules/project-dom-handler.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"ProjectDomHandler\": () => (/* binding */ ProjectDomHandler)\n/* harmony export */ });\nconst ProjectDomHandler = {\n    render: function (project) {\n        this.createElements();\n        this.addClasses();\n        this.addTitle(project.title);\n        this.appendProject();\n    },\n\n    createElements: function () {\n        this.projectContainer = document.createElement('div');\n    },\n\n    addClasses: function () {\n        this.projectContainer.classList = 'project';\n    },\n\n    addTitle: function (title) {\n        this.projectContainer.textContent = title;\n    },\n\n    appendProject: function () {\n        const appProjectContainer = document.getElementById('project-container');\n        const newProjectBtnContainer = document.getElementById('new-project-btn-container');\n        appProjectContainer.insertBefore(this.projectContainer, newProjectBtnContainer);\n    },\n};\n\n\n\n\n//# sourceURL=webpack://to-do-app/./src/modules/project-dom-handler.js?");
+
+/***/ }),
+
 /***/ "./src/modules/to-do-class.js":
 /*!************************************!*\
   !*** ./src/modules/to-do-class.js ***!
@@ -167,6 +167,16 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"ToDo\": () => (/* binding */ ToDo)\n/* harmony export */ });\nclass ToDo {\n    constructor(title, description, dueDate, priority) {\n        this.title = title;\n        this.description = description;\n        this.dueDate = dueDate;\n        this.priority = priority;\n        this.toDos = [];\n    }\n\n    get title() {\n        return this._title;\n    }\n\n    set title(value) {\n        this._title = value;\n    }\n    get description() {\n        return this._description;\n    }\n\n    set description(value) {\n        this._description = value;\n    }\n    get dueDate() {\n        return this._dueDate;\n    }\n\n    set dueDate(value) {\n        this._dueDate = value;\n    }\n    get priority() {\n        return this._priority;\n    }\n\n    set priority(value) {\n        this._priority = value;\n    }\n}\n\n\n\n\n//# sourceURL=webpack://to-do-app/./src/modules/to-do-class.js?");
+
+/***/ }),
+
+/***/ "./src/modules/todo-dom-handler.js":
+/*!*****************************************!*\
+  !*** ./src/modules/todo-dom-handler.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"TodoDomHandler\": () => (/* binding */ TodoDomHandler)\n/* harmony export */ });\nconst TodoDomHandler = {\n    renderAllProjectTodos: function (project) {\n        project.todos.forEach((todo) => {\n            this.render(todo);\n        });\n    },\n\n    render: function (todo) {\n        this.createElements();\n        this.setAttributes();\n        this.addClasses();\n        this.addText(todo.title);\n        this.appendTodo();\n    },\n\n    createElements() {\n        this.todoContainer = document.createElement('div');\n        this.todo = document.createElement('li');\n        this.todoCheckbox = document.createElement('input');\n        this.todoDeleteBtn = document.createElement('button');\n    },\n\n    setAttributes: function () {\n        this.todoCheckbox.setAttribute('type', 'checkbox');\n    },\n\n    addClasses: function () {\n        this.todoContainer.classList = 'to-do';\n        this.todoCheckbox.classList = 'to-do-checkbox';\n        this.todoDeleteBtn.classList = 'to-do-delete-btn';\n    },\n\n    addText: function (title) {\n        this.todo.textContent = title;\n        this.todoDeleteBtn.textContent = 'delete';\n    },\n\n    appendTodo: function () {\n        const appToDoContainer = document.getElementById('to-do-container');\n        this.todoContainer.append(this.todoCheckbox, this.todo, this.todoDeleteBtn);\n        appToDoContainer.append(this.todoContainer);\n    },\n};\n\n\n\n\n//# sourceURL=webpack://to-do-app/./src/modules/todo-dom-handler.js?");
 
 /***/ }),
 
