@@ -21,7 +21,8 @@ const DomHandler = {
 
     appendProject: function () {
         const appProjectContainer = document.getElementById('project-container');
-        appProjectContainer.append(this.projectContainer);
+        const newProjectBtnContainer = document.getElementById('new-project-btn-container');
+        appProjectContainer.insertBefore(this.projectContainer, newProjectBtnContainer);
     },
 
     //.Todo Dom handling
