@@ -1,3 +1,4 @@
+import { App } from '../index';
 import { Project } from './project-class';
 import { ToDo } from './to-do-class';
 
@@ -8,6 +9,7 @@ const buildDemoProject = () => {
         const toDo = new ToDo('Walk the dog', 'filler text', '12/2/2009', 'low');
         demoProject.todos.push(toDo);
     }
+    App.saveProject(demoProject);
 
     return demoProject;
 };

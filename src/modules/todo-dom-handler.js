@@ -9,7 +9,7 @@ const TodoDomHandler = {
         this.createElements();
         this.setAttributes();
         this.addClasses();
-        this.addText(todo.title);
+        this.addText(todo._title);
         this.appendTodo();
     },
 
