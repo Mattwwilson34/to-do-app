@@ -67,9 +67,15 @@ const ProjectDomHandler = {
     selectProject: function (e) {
         const projectTitle = e.target.textContent;
         const projectTodos = this.getProjectTodos(projectTitle);
+        this.updateProjectTitle(projectTitle);
         TodoDomHandler.removeTodos();
         this.renderProjectTodos(projectTodos);
         this.updateSelectedProjectClases(e);
+    },
+
+    updateProjectTitle: function (projectTitle) {
+        const projectTitleContainer = document.getElementById('project-title-container');
+        projectTitleContainer.textContent = projectTitle;
     },
 
     getProjectTodos: function (projectTitle) {

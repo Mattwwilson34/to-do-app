@@ -74,6 +74,8 @@ body {
     justify-content: center;
     align-items: flex-end;
     height: 50px;
+    font-size: 28px;
+    font-weight: 700;
     border-bottom: 1px solid black;
     border-top-right-radius: 10px;
     background-color: var(--dark-blue);
@@ -99,7 +101,12 @@ body {
 .project {
     font-size: 28px;
     padding: 10px;
-    border-radius: 5px;
+    transition: all 0.125s ease-in;
+}
+
+.project:hover {
+    cursor: pointer;
+    background-color: var(--lighter-blue);
 }
 
 .active-project {
@@ -131,17 +138,8 @@ body {
     list-style-type: none;
 }
 
-.to-do:hover {
-    background-color: var(--lighter-blue);
-}
-
-input.to-do-checkbox {
-    margin: 0 15px;
-    width: 20px;
-    height: 20px;
-}
-
 .to-do-delete-btn {
+    display: none;
     height: 25px;
     width: 75px;
     margin-left: auto;
@@ -156,7 +154,59 @@ input.to-do-checkbox {
 
 .to-do-delete-btn:hover {
     opacity: 1;
+    cursor: pointer;
 }
+
+.to-do:hover > .to-do-delete-btn {
+    display: block;
+}
+
+.new-to-do-div {
+    width: 100%;
+    height: 40px;
+    font-size: 18px;
+    padding-left: 8px;
+    display: flex;
+    align-items: center;
+    background-color: var(--to-do-bg);
+}
+
+.new-to-do-symbol {
+    margin: 0 15px;
+    font-size: 30px;
+    text-align: center;
+    font-weight: 700;
+    line-height: 28px;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+}
+
+.new-to-do-div:hover > .new-to-do-symbol {
+    background-color: var(--lighter-blue);
+    cursor: pointer;
+    color: white;
+}
+
+.new-to-do-input {
+    width: 100%;
+    height: 40px;
+    padding-left: 0;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    background-color: var(--to-do-bg);
+}
+
+input.to-do-checkbox {
+    margin: 0 15px;
+    width: 20px;
+    height: 20px;
+}
+
 /* *******OVERLAY********** */
 
 #overlay {

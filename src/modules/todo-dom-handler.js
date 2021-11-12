@@ -36,9 +36,22 @@ const TodoDomHandler = {
     },
 
     appendTodo: function () {
-        const appToDoContainer = document.getElementById('to-do-container');
+        this.appToDoContainer = document.getElementById('to-do-container');
         this.todoContainer.append(this.todoCheckbox, this.todo, this.todoDeleteBtn);
-        appToDoContainer.append(this.todoContainer);
+        this.appToDoContainer.insertBefore(this.todoContainer, this.newTodoDiv);
+    },
+
+    addTodo: function () {
+        this.newTodoDiv = document.createElement('div');
+        this.newTodoSymbol = document.createElement('div');
+        this.newTodoInput = document.createElement('input');
+        this.newTodoDiv.classList = 'new-to-do-div';
+        this.newTodoSymbol.classList = 'new-to-do-symbol';
+        this.newTodoInput.classList = 'new-to-do-input';
+        this.newTodoSymbol.textContent = '+';
+        this.newTodoInput.setAttribute('placeholder', 'Add task');
+        this.newTodoDiv.append(this.newTodoSymbol, this.newTodoInput);
+        this.appToDoContainer.append(this.newTodoDiv);
     },
 
     removeTodos: function () {

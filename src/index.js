@@ -1,6 +1,7 @@
 import './style.css';
 import { buildDemoProject } from './modules/demo-project';
 import { ProjectDomHandler } from './modules/project-dom-handler';
+import { TodoDomHandler } from './modules/todo-dom-handler';
 
 const App = {
     todoUser: {
@@ -13,6 +14,7 @@ const App = {
             this.todoUser.projects = this.getProjectsFromStorage();
             this.renderProjects();
             this.selectFirstProject();
+            TodoDomHandler.addTodo();
         } else {
             this.builDemo();
         }
