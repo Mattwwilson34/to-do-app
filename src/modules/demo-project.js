@@ -3,15 +3,29 @@ import { Project } from './project-class';
 import { ToDo } from './to-do-class';
 
 const buildDemoProject = () => {
+    //demo
     const demoProject = new Project('Demo', 'Demo project', '12/2/2021', 'low');
-
-    for (let i = 0; i < 4; i++) {
-        const toDo = new ToDo('Walk the dog', 'filler text', '12/2/2009', 'low');
-        demoProject.todos.push(toDo);
-    }
+    const todo1 = new ToDo('Walk the dog', 'filler text', '12/2/2009', 'low');
+    const todo2 = new ToDo('Walk the cat', 'filler text', '12/2/2009', 'low');
+    const todo3 = new ToDo('Walk the donkey', 'filler text', '12/2/2009', 'low');
+    const todo4 = new ToDo('Walk the horse', 'filler text', '12/2/2009', 'low');
+    const todoArray = [todo1, todo2, todo3, todo4];
+    todoArray.forEach((todo) => {
+        demoProject.todos.push(todo);
+    });
     App.saveProjectToUser(demoProject);
 
-    return demoProject;
+    //seed
+    const seedProject = new Project('Seed', 'Seed project', '11/10/2021', 'medium');
+    const todo5 = new ToDo('Buy Milk', 'filler text', '12/2/2009', 'low');
+    const todo6 = new ToDo('Go to the gym', 'filler text', '12/2/2009', 'low');
+    const todo7 = new ToDo('Purchase flights to Denver', 'filler text', '12/2/2009', 'low');
+    const todo8 = new ToDo('Meditate', 'filler text', '12/2/2009', 'low');
+    const todoArray2 = [todo5, todo6, todo7, todo8];
+    todoArray2.forEach((todo) => {
+        seedProject.todos.push(todo);
+    });
+    App.saveProjectToUser(seedProject);
 };
 
 export { buildDemoProject };

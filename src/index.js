@@ -12,6 +12,7 @@ const App = {
             console.log('todoUser found! Rendering projects');
             this.todoUser.projects = this.getProjectsFromStorage();
             this.renderProjects();
+            this.selectFirstProject();
         } else {
             this.builDemo();
         }
@@ -23,18 +24,22 @@ const App = {
         this.storeAllProjectsLocally();
         setTimeout(() => {
             console.log('Rendering demo project!');
-        }, 2000);
+        }, 1500);
         setTimeout(() => {
             this.renderProjects();
-        }, 4000);
+        }, 2500);
     },
 
     renderProjects: function () {
         const projects = this.getProjectsFromStorage();
         projects.forEach((project) => {
             ProjectDomHandler.render(project);
-            ProjectDomHandler.bindEvents();
         });
+        ProjectDomHandler.bindEvents();
+    },
+
+    selectFirstProject: function () {
+        ProjectDomHandler.setFirstProjectActive();
     },
 
     saveProjectToUser: function (project) {

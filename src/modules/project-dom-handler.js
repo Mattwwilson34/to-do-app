@@ -1,5 +1,6 @@
-import { Project } from './project-class';
 import { App } from '../index';
+import { Project } from './project-class';
+import { TodoDomHandler } from './todo-dom-handler';
 
 const ProjectDomHandler = {
     render: function (project) {
@@ -8,6 +9,12 @@ const ProjectDomHandler = {
         this.addTitle(project._title);
         this.appendProject();
         this.storeAllProjectElements();
+    },
+
+    renderProjectTodos: function (projectTodos) {
+        projectTodos.forEach((todo) => {
+            TodoDomHandler.render(todo);
+        });
     },
 
     createElements: function () {
@@ -35,7 +42,13 @@ const ProjectDomHandler = {
     bindEvents: function () {
         this.newProjectBtnContainer.addEventListener('click', this.openNewProjectForm);
         this.projectElements.forEach((element) => {
-            element.addEventListener('click', this.selectProject);
+            element.addEventListener('click', this.selectProject.bind(this));
+        });
+    },
+
+    clearProjectListeners: function () {
+        this.projectElements.forEach((element) => {
+            element.removeEventListener('click', selectProject);
         });
     },
 
@@ -46,8 +59,21 @@ const ProjectDomHandler = {
         e.target.classList.toggle('active-project');
     },
 
+    setFirstProjectActive: function () {
+        this.projectElements[0].classList.toggle('active-project');
+        this.renderProjectTodos(this.getProjectTodos(this.projectElements[0].textContent));
+    },
+
     selectProject: function (e) {
-        ProjectDomHandler.updateSelectedProjectClases(e);
+        const projectTitle = e.target.textContent;
+        const projectTodos = this.getProjectTodos(projectTitle);
+        TodoDomHandler.removeTodos();
+        this.renderProjectTodos(projectTodos);
+        this.updateSelectedProjectClases(e);
+    },
+
+    getProjectTodos: function (projectTitle) {
+        return App.getProjectsFromStorage().filter((project) => project._title === projectTitle)[0].todos;
     },
 
     openNewProjectForm: function (e) {
@@ -150,20 +176,27 @@ const ProjectOverlayDomHandler = {
     },
 
     submit: function () {
-        ProjectOverlayDomHandler.storeInputValues();
-        ProjectOverlayDomHandler.buildNewProject();
-        ProjectOverlayDomHandler.removeOverlay();
-        ProjectOverlayDomHandler.renderNewProject();
-        ProjectDomHandler.bindEvents();
+        this.storeInputValues();
+        this.buildNewProject();
+        this.removeOverlay();
+        this.renderNewProject();
+        this.bindNewProjectEvent();
     },
 
     cancel: function () {
-        ProjectOverlayDomHandler.removeOverlay();
+        this.removeOverlay();
     },
 
     bindEvents: function () {
-        this.submitBtn.addEventListener('click', this.submit);
-        this.cancelBtn.addEventListener('click', this.cancel);
+        this.submitBtn.addEventListener('click', this.submit.bind(this));
+        this.cancelBtn.addEventListener('click', this.cancel.bind(this));
+    },
+
+    bindNewProjectEvent: function () {
+        ProjectDomHandler.projectContainer.addEventListener(
+            'click',
+            ProjectDomHandler.selectProject.bind(ProjectDomHandler)
+        );
     },
 };
 

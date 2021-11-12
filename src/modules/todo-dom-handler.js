@@ -40,6 +40,13 @@ const TodoDomHandler = {
         this.todoContainer.append(this.todoCheckbox, this.todo, this.todoDeleteBtn);
         appToDoContainer.append(this.todoContainer);
     },
+
+    removeTodos: function () {
+        const allTodos = document.querySelectorAll('.to-do');
+        allTodos.forEach((todo) => {
+            todo.remove();
+        });
+    },
 };
 
 export { TodoDomHandler };
