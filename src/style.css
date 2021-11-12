@@ -99,7 +99,11 @@ body {
 .project {
     font-size: 28px;
     padding: 10px;
-    background-color: var(--active-project);
+    border-radius: 5px;
+}
+
+.active-project {
+    background: var(--lighter-blue);
 }
 
 .new-project-btn {

@@ -9,7 +9,7 @@ const buildDemoProject = () => {
         const toDo = new ToDo('Walk the dog', 'filler text', '12/2/2009', 'low');
         demoProject.todos.push(toDo);
     }
-    App.saveProject(demoProject);
+    App.saveProjectToUser(demoProject);
 
     return demoProject;
 };

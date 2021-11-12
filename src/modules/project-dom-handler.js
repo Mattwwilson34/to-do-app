@@ -1,4 +1,5 @@
 import { Project } from './project-class';
+import { App } from '../index';
 
 const ProjectDomHandler = {
     render: function (project) {
@@ -6,6 +7,7 @@ const ProjectDomHandler = {
         this.addClasses();
         this.addTitle(project._title);
         this.appendProject();
+        this.storeAllProjectElements();
     },
 
     createElements: function () {
@@ -26,8 +28,26 @@ const ProjectDomHandler = {
         appProjectContainer.insertBefore(this.projectContainer, this.newProjectBtnContainer);
     },
 
+    storeAllProjectElements: function () {
+        this.projectElements = document.querySelectorAll('.project');
+    },
+
     bindEvents: function () {
         this.newProjectBtnContainer.addEventListener('click', this.openNewProjectForm);
+        this.projectElements.forEach((element) => {
+            element.addEventListener('click', this.selectProject);
+        });
+    },
+
+    updateSelectedProjectClases: function (e) {
+        this.projectElements.forEach((element) => {
+            element.classList.remove('active-project');
+        });
+        e.target.classList.toggle('active-project');
+    },
+
+    selectProject: function (e) {
+        ProjectDomHandler.updateSelectedProjectClases(e);
     },
 
     openNewProjectForm: function (e) {
@@ -121,13 +141,20 @@ const ProjectOverlayDomHandler = {
     },
 
     buildNewProject: function () {
-        const project = new Project(...this.newProjectInputValues);
-        project.store();
+        this.newProject = new Project(...this.newProjectInputValues);
+        this.newProject.store();
+    },
+
+    renderNewProject: function () {
+        ProjectDomHandler.render(this.newProject);
     },
 
     submit: function () {
+        ProjectOverlayDomHandler.storeInputValues();
         ProjectOverlayDomHandler.buildNewProject();
         ProjectOverlayDomHandler.removeOverlay();
+        ProjectOverlayDomHandler.renderNewProject();
+        ProjectDomHandler.bindEvents();
     },
 
     cancel: function () {

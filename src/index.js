@@ -1,7 +1,6 @@
 import './style.css';
 import { buildDemoProject } from './modules/demo-project';
 import { ProjectDomHandler } from './modules/project-dom-handler';
-import { TodoDomHandler } from './modules/todo-dom-handler';
 
 const App = {
     todoUser: {
@@ -11,7 +10,8 @@ const App = {
     init: function () {
         if (localStorage.getItem('todoUser')) {
             console.log('todoUser found! Rendering projects');
-            this.renderProjects(this.getProjectsFromStorage());
+            this.todoUser.projects = this.getProjectsFromStorage();
+            this.renderProjects();
         } else {
             this.builDemo();
         }
@@ -25,26 +25,24 @@ const App = {
             console.log('Rendering demo project!');
         }, 2000);
         setTimeout(() => {
-            this.renderProjects(this.getProjectsFromStorage());
+            this.renderProjects();
         }, 4000);
     },
 
-    getProjectsFromStorage: function () {
-        let projects = localStorage.getItem('todoUser');
-        projects = JSON.parse(projects);
-        return projects;
-    },
-
-    renderProjects: function (projects) {
+    renderProjects: function () {
+        const projects = this.getProjectsFromStorage();
         projects.forEach((project) => {
             ProjectDomHandler.render(project);
             ProjectDomHandler.bindEvents();
-            TodoDomHandler.renderAllProjectTodos(project);
         });
     },
 
-    saveProject: function (project) {
+    saveProjectToUser: function (project) {
         this.todoUser.projects.push(project);
+    },
+
+    getProjectsFromStorage: function () {
+        return JSON.parse(localStorage.getItem('todoUser'));
     },
 
     storeAllProjectsLocally: function () {
@@ -56,4 +54,4 @@ App.init();
 
 export { App };
 
-/// Not sure why 2 demos are being added to todoUser Object
+//todo Select project [should populate project todo's on selection]

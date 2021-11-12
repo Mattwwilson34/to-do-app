@@ -1,3 +1,5 @@
+import { App } from '../index';
+
 class Project {
     constructor(title, description, dueDate, priority) {
         this.title = title;
@@ -37,7 +39,8 @@ class Project {
     }
 
     store() {
-        localStorage.setItem(this.title, JSON.stringify(this));
+        App.saveProjectToUser(this);
+        App.storeAllProjectsLocally();
     }
 
     getFromStorage() {
