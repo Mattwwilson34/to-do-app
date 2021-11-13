@@ -29,6 +29,8 @@ const App = {
         }, 1500);
         setTimeout(() => {
             this.renderProjects();
+            this.selectFirstProject();
+            TodoDomHandler.addTodo();
         }, 2500);
     },
 

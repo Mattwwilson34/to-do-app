@@ -282,17 +282,19 @@ input.to-do-checkbox {
     font-size: 24px;
 }
 
+#overlay-form-cancel-btn:hover,
+#overlay-form-submit-btn:hover {
+    cursor: pointer;
+    filter: brightness(0.9);
+}
+
 #overlay-form-submit-btn {
-    background-color: var(--success);
+    background-color: var(--danger);
 }
 
 #overlay-form-cancel-btn {
-    background-color: var(--danger);
-    opacity: 0.8;
-}
-
-#overlay-form-cancel-btn:hover {
-    opacity: 1;
+    background-color: var(--to-do-bg);
+    border: 1px solid black;
 }
 
 .overlay-form-submit-btn {
