@@ -83,6 +83,7 @@ body {
 
 #to-do-container {
     width: 100%;
+    padding: 0 25px;
 }
 
 .project-header {
@@ -132,8 +133,6 @@ body {
     font-size: 18px;
     display: flex;
     align-items: center;
-    padding-left: 10px;
-    background-color: var(--to-do-bg);
     border-bottom: 1px solid rgba(218, 217, 217, 0.7);
     list-style-type: none;
 }
@@ -165,14 +164,23 @@ body {
     width: 100%;
     height: 40px;
     font-size: 18px;
-    padding-left: 8px;
     display: flex;
-    align-items: center;
-    background-color: var(--to-do-bg);
+}
+
+.new-to-do-div-expanded {
+    margin-top: 5px;
+    height: 150px;
+    border: 1px solid black;
+    padding: 5px 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 .new-to-do-symbol {
-    margin: 0 15px;
+    position: relative;
+    right: 3px;
+    top: 4px;
+    margin-right: 15px;
     font-size: 30px;
     text-align: center;
     font-weight: 700;
@@ -183,12 +191,14 @@ body {
 }
 
 .new-to-do-div:hover > .new-to-do-symbol {
-    background-color: var(--lighter-blue);
+    background-color: var(--dark-blue);
     cursor: pointer;
     color: white;
 }
 
-.new-to-do-input {
+.new-to-do-input-title,
+.new-to-do-input-description {
+    display: block;
     width: 100%;
     height: 40px;
     padding-left: 0;
@@ -198,13 +208,54 @@ body {
     outline: none;
     border: none;
     cursor: pointer;
-    background-color: var(--to-do-bg);
+    background-color: var(--gray);
 }
 
 input.to-do-checkbox {
-    margin: 0 15px;
+    margin-right: 15px;
+    margin-left: 0;
     width: 20px;
     height: 20px;
+}
+
+.new-to-do-input-container {
+    display: flex;
+}
+
+.new-to-do-input-due-date {
+    margin-top: 20px;
+    height: 35px;
+    width: 130px;
+    border-radius: 5px;
+    margin-right: 20px;
+}
+
+.new-to-do-save-btn,
+.new-to-do-cancel-btn {
+    margin-top: 15px;
+    height: 50px;
+    width: 100px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.new-to-do-save-btn:hover,
+.new-to-do-cancel-btn:hover {
+    cursor: pointer;
+    filter: brightness(0.9);
+}
+
+.new-to-do-save-btn {
+    background-color: var(--danger);
+    border: 1px solid black;
+}
+
+.new-to-do-cancel-btn {
+    background-color: var(--to-do-bg);
+    border: 1px solid black;
+    margin-left: 15px;
 }
 
 /* *******OVERLAY********** */

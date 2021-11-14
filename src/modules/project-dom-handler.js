@@ -1,6 +1,7 @@
 import { App } from '../index';
 import { ProjectOverlayDomHandler } from './project-overlay-dom-handler';
 import { TodoDomHandler } from './todo-dom-handler';
+import { TodoInputDomHandler } from './todo-input-dom-handler';
 
 const ProjectDomHandler = {
     render: function (project) {
@@ -69,7 +70,9 @@ const ProjectDomHandler = {
         const projectTodos = this.getProjectTodos(projectTitle);
         this.updateProjectTitle(projectTitle);
         TodoDomHandler.removeTodos();
+        TodoInputDomHandler.removeNewTodoInput();
         this.renderProjectTodos(projectTodos);
+        TodoInputDomHandler.render();
         this.updateSelectedProjectClases(e);
     },
 
