@@ -1,3 +1,0 @@
-const TodoOverlayDomHandler = {};
-
-export { TodoOverlayDomHandler };

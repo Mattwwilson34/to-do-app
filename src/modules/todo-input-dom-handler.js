@@ -1,3 +1,5 @@
+import { TodoDomHandler } from './todo-dom-handler';
+
 const TodoInputDomHandler = {
     render: function () {
         this.storeAppTodoContainer();
@@ -60,10 +62,11 @@ const TodoInputDomHandler = {
     bindEvents: function () {
         this.newTodoInputTitle.addEventListener('click', this.expand.bind(this));
         this.newTodoInputCancelBtn.addEventListener('click', this.removeExpandedElements.bind(this));
+        this.newTodoInputSaveBtn.addEventListener('click', this.storeInputValues.bind(this));
     },
 
     expand: function () {
-        this.newTodoSymbol.remove();
+        this.removeTodoSymbol();
         this.updateSyles();
         this.appendOnExpand();
     },
@@ -76,6 +79,10 @@ const TodoInputDomHandler = {
         this.newTodoDiv.append(this.newTodoInputDescription, this.newTodoInputContaier);
         this.newTodoInputContaier.append(this.newTodoInputDueDate, this.newTodoInputPriority);
         this.appToDoContainer.append(this.newTodoInputSaveBtn, this.newTodoInputCancelBtn);
+    },
+
+    removeTodoSymbol: function () {
+        this.newTodoSymbol.remove();
     },
 
     removeNewTodoInput: function () {
@@ -93,9 +100,17 @@ const TodoInputDomHandler = {
         this.newTodoInputCancelBtn.remove();
         this.render();
     },
+
+    storeInputValues: function () {
+        const newTodoInputValues = [
+            this.newTodoInputTitle.value,
+            this.newTodoInputDescription.value,
+            this.newTodoInputDueDate.value,
+            this.newTodoInputPriority.value,
+        ];
+        this.removeExpandedElements();
+        TodoDomHandler.buildTodo(...newTodoInputValues);
+    },
 };
 
 export { TodoInputDomHandler };
-
-///! When div is expanded all other inputs asides from title lose focus immediately not allowing input.
-///! Might have to completely remove all inputs and replace them inside the newly expanded div?

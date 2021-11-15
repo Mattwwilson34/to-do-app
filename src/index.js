@@ -1,6 +1,7 @@
 import './style.css';
 import { buildDemoProject } from './modules/demo-project';
 import { ProjectDomHandler } from './modules/project-dom-handler';
+import { TodoDomHandler } from './modules/todo-dom-handler';
 import { TodoInputDomHandler } from './modules/todo-input-dom-handler';
 
 const App = {
@@ -34,6 +35,8 @@ const App = {
         }, 2500);
     },
 
+    /// *** Project Logic ***
+
     renderProjects: function () {
         const projects = this.getProjectsFromStorage();
         projects.forEach((project) => {
@@ -57,10 +60,17 @@ const App = {
     storeAllProjectsLocally: function () {
         localStorage.setItem('todoUser', JSON.stringify(this.todoUser.projects));
     },
+
+    /// *** Todo Logic ***
+
+    saveTodoLocally: function (projectTitle, todo) {
+        const currentProject = this.todoUser.projects.filter((project) => project._title === projectTitle);
+        currentProject[0].todos.push(todo);
+        this.storeAllProjectsLocally();
+        TodoDomHandler.refreshTodos();
+    },
 };
 
 App.init();
 
 export { App };
-
-//todo Select project [should populate project todo's on selection]

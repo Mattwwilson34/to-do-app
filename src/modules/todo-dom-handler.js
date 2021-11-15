@@ -1,3 +1,7 @@
+import { App } from '../index';
+import { ToDo } from './to-do-class';
+import { TodoInputDomHandler } from './todo-input-dom-handler';
+
 const TodoDomHandler = {
     renderAllProjectTodos: function (project) {
         project.todos.forEach((todo) => {
@@ -46,6 +50,29 @@ const TodoDomHandler = {
         allTodos.forEach((todo) => {
             todo.remove();
         });
+    },
+
+    refreshTodos: function () {
+        this.removeTodos();
+        TodoInputDomHandler.removeTodoSymbol();
+        TodoInputDomHandler.removeNewTodoInput();
+        this.renderAllProjectTodos(this.getActiveProject());
+        TodoInputDomHandler.render();
+    },
+
+    getActiveProject: function () {
+        const projects = App.getProjectsFromStorage();
+        const currentProject = projects.filter((project) => project._title === this.getProjectTitle());
+        return currentProject[0];
+    },
+
+    getProjectTitle: function () {
+        return document.getElementById('project-title-container').textContent;
+    },
+
+    buildTodo: function (title, description, dueDate, priority) {
+        const todo = new ToDo(title, description, dueDate, priority);
+        todo.store(this.getProjectTitle(), todo);
     },
 };
 

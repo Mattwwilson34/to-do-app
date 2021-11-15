@@ -1,3 +1,5 @@
+import { App } from '../index';
+
 class ToDo {
     constructor(title, description, dueDate, priority) {
         this.title = title;
@@ -34,6 +36,10 @@ class ToDo {
 
     set priority(value) {
         this._priority = value;
+    }
+
+    store(projectTitle, todo) {
+        App.saveTodoLocally(projectTitle, todo);
     }
 }
 

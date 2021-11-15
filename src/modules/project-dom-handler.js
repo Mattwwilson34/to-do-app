@@ -62,6 +62,7 @@ const ProjectDomHandler = {
 
     setFirstProjectActive: function () {
         this.projectElements[0].classList.toggle('active-project');
+        this.updateProjectTitle(this.projectElements[0].textContent);
         this.renderProjectTodos(this.getProjectTodos(this.projectElements[0].textContent));
     },
 
