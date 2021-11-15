@@ -72,6 +72,8 @@ const ProjectDomHandler = {
         this.updateProjectTitle(projectTitle);
         TodoDomHandler.removeTodos();
         TodoInputDomHandler.removeNewTodoInput();
+        TodoInputDomHandler.newTodoInputSaveBtn.remove();
+        TodoInputDomHandler.newTodoInputCancelBtn.remove();
         this.renderProjectTodos(projectTodos);
         TodoInputDomHandler.render();
         this.updateSelectedProjectClases(e);
