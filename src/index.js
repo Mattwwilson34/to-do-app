@@ -75,5 +75,5 @@ App.init();
 
 export { App };
 
-//? Build delete todo functionality
+//? Build project delete functionality
 //? Determine how you want to handle todo scheduleing [Build timers for each todo, Run function when timer reaches 00:00:00]

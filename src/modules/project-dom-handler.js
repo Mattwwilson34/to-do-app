@@ -2,12 +2,14 @@ import { App } from '../index';
 import { ProjectOverlayDomHandler } from './project-overlay-dom-handler';
 import { TodoDomHandler } from './todo-dom-handler';
 import { TodoInputDomHandler } from './todo-input-dom-handler';
+import Icon from '../icons/delete.png';
 
 const ProjectDomHandler = {
     render: function (project) {
         this.createElements();
         this.addClasses();
         this.addTitle(project._title);
+        this.setSources();
         this.appendProject();
         this.storeAllProjectElements();
     },
@@ -20,19 +22,28 @@ const ProjectDomHandler = {
 
     createElements: function () {
         this.projectContainer = document.createElement('div');
+        this.title = document.createElement('span');
+        this.deleteIcon = document.createElement('img');
     },
 
     addClasses: function () {
-        this.projectContainer.classList = 'project';
+        this.projectContainer.classList = 'project-container';
+        this.title.classList = 'project-title';
+        this.deleteIcon.classList = 'project-delete-icon';
     },
 
     addTitle: function (title) {
-        this.projectContainer.textContent = title;
+        this.title.textContent = title;
+    },
+
+    setSources: function () {
+        this.deleteIcon.src = Icon;
     },
 
     appendProject: function () {
         const appProjectContainer = document.getElementById('project-container');
         this.newProjectBtnContainer = document.getElementById('new-project-btn-container');
+        this.projectContainer.append(this.title, this.deleteIcon);
         appProjectContainer.insertBefore(this.projectContainer, this.newProjectBtnContainer);
     },
 

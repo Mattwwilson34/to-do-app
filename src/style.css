@@ -99,13 +99,15 @@ body {
     text-align: center;
 }
 
-.project {
+.project-container {
+    display: flex;
+    justify-content: space-between;
     font-size: 28px;
     padding: 10px;
     transition: all 0.125s ease-in;
 }
 
-.project:hover {
+.project-container:hover {
     cursor: pointer;
     background-color: var(--lighter-blue);
 }
@@ -125,6 +127,13 @@ body {
 
 .new-project-btn:hover {
     opacity: 1;
+}
+
+.project-delete-icon {
+    display: inline-block;
+    height: 25px;
+    width: 25px;
+    background-image: url('./icons/delete.png');
 }
 
 .to-do {
