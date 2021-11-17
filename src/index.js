@@ -4,7 +4,7 @@ import { ProjectDomHandler } from './modules/project-dom-handler';
 import { TodoDomHandler } from './modules/todo-dom-handler';
 import { TodoInputDomHandler } from './modules/todo-input-dom-handler';
 
-const App = {
+let App = {
     todoUser: {
         projects: [],
     },
@@ -74,3 +74,6 @@ const App = {
 App.init();
 
 export { App };
+
+//? Build delete todo functionality
+//? Determine how you want to handle todo scheduleing [Build timers for each todo, Run function when timer reaches 00:00:00]

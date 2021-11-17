@@ -15,6 +15,7 @@ const TodoDomHandler = {
         this.addClasses();
         this.addText(todo._title);
         this.appendTodo();
+        this.bindEvents();
     },
 
     createElements() {
@@ -43,6 +44,41 @@ const TodoDomHandler = {
         this.appToDoContainer = document.getElementById('to-do-container');
         this.todoContainer.append(this.todoCheckbox, this.todo, this.todoDeleteBtn);
         this.appToDoContainer.insertBefore(this.todoContainer, this.newTodoDiv);
+    },
+
+    bindEvents: function () {
+        this.todoDeleteBtn.addEventListener('click', this.deleteTodo.bind(this));
+    },
+
+    deleteTodo: function (e) {
+        const project = this.getActiveProject();
+        const projectIndex = this.getIndexOfProject(App.todoUser, this.getActiveProject()._title);
+        const todoTitle = this.getParentElement(e.target).children[1].textContent;
+        const todoIndex = this.getIndexOfTodo(project, todoTitle);
+        project.todos.splice(todoIndex, 1);
+        App.todoUser.projects.splice(projectIndex, 1, project);
+        App.storeAllProjectsLocally();
+        this.refreshTodos();
+    },
+
+    getParentElement: function (element) {
+        return element.parentElement;
+    },
+
+    getIndexOfProject: function (user, projectTitle) {
+        return user.projects
+            .map(function (obj) {
+                return obj._title;
+            })
+            .indexOf(projectTitle);
+    },
+
+    getIndexOfTodo: function (project, todoTitle) {
+        return project.todos
+            .map(function (obj) {
+                return obj._title;
+            })
+            .indexOf(todoTitle);
     },
 
     removeTodos: function () {
