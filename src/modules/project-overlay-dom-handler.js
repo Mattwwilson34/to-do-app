@@ -117,6 +117,7 @@ const ProjectOverlayDomHandler = {
             'click',
             ProjectDomHandler.selectProject.bind(ProjectDomHandler)
         );
+        ProjectDomHandler.deleteIcon.addEventListener('click', ProjectDomHandler.deleteProject.bind(ProjectDomHandler));
     },
 };
 

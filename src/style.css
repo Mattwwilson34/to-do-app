@@ -238,6 +238,14 @@ input.to-do-checkbox {
     height: 20px;
 }
 
+.strike-through {
+    text-decoration: line-through;
+}
+
+.opacity-50 {
+    opacity: 0.5;
+}
+
 .new-to-do-input-container {
     display: flex;
 }

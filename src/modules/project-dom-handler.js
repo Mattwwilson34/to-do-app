@@ -48,7 +48,8 @@ const ProjectDomHandler = {
     },
 
     storeAllProjectElements: function () {
-        this.projectElements = document.querySelectorAll('.project');
+        this.projectElements = document.querySelectorAll('.project-container');
+        this.deleteIcons = document.querySelectorAll('.project-delete-icon');
     },
 
     bindEvents: function () {
@@ -56,11 +57,32 @@ const ProjectDomHandler = {
         this.projectElements.forEach((element) => {
             element.addEventListener('click', this.selectProject.bind(this));
         });
+        this.deleteIcons.forEach((icon) => {
+            icon.addEventListener('click', this.deleteProject.bind(this));
+        });
     },
 
-    clearProjectListeners: function () {
-        this.projectElements.forEach((element) => {
-            element.removeEventListener('click', selectProject);
+    deleteProject: function (e) {
+        const clickedProjectTitle = e.target.parentElement.firstChild.textContent;
+        const index = TodoDomHandler.getIndexOfProject(App.todoUser, clickedProjectTitle);
+        App.todoUser.projects.splice(index, 1);
+        App.storeAllProjectsLocally();
+        this.refreshProjects();
+
+        //Prevent project switching when clicking on delete icon
+        e.stopPropagation();
+    },
+
+    refreshProjects: function () {
+        this.removeProjects();
+        App.renderProjects();
+        TodoDomHandler.refreshTodos();
+    },
+
+    removeProjects: function () {
+        const projects = document.querySelectorAll('.project-container');
+        projects.forEach((element) => {
+            element.remove();
         });
     },
 
@@ -83,8 +105,7 @@ const ProjectDomHandler = {
         this.updateProjectTitle(projectTitle);
         TodoDomHandler.removeTodos();
         TodoInputDomHandler.removeNewTodoInput();
-        TodoInputDomHandler.newTodoInputSaveBtn.remove();
-        TodoInputDomHandler.newTodoInputCancelBtn.remove();
+        TodoInputDomHandler.removeInputButtons();
         this.renderProjectTodos(projectTodos);
         TodoInputDomHandler.render();
         this.updateSelectedProjectClases(e);

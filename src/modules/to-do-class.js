@@ -1,12 +1,13 @@
 import { App } from '../index';
 
 class ToDo {
-    constructor(title, description, dueDate, priority) {
+    constructor(title, description, dueDate, priority, complete = false) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
         this.toDos = [];
+        this.complete = complete;
     }
 
     get title() {

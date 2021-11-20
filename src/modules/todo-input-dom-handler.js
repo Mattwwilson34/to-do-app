@@ -89,6 +89,11 @@ const TodoInputDomHandler = {
         this.newTodoDiv.remove();
     },
 
+    removeInputButtons: function () {
+        this.newTodoInputSaveBtn.remove();
+        this.newTodoInputCancelBtn.remove();
+    },
+
     removeExpandedElements: function () {
         this.newTodoInputTitle.remove();
         this.newTodoInputDescription.remove();

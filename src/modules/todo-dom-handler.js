@@ -12,8 +12,9 @@ const TodoDomHandler = {
     render: function (todo) {
         this.createElements();
         this.setAttributes();
-        this.addClasses();
+        this.addClasses(todo.complete);
         this.addText(todo._title);
+        this.checkIfComplete(todo.complete);
         this.appendTodo();
         this.bindEvents();
     },
@@ -29,15 +30,30 @@ const TodoDomHandler = {
         this.todoCheckbox.setAttribute('type', 'checkbox');
     },
 
-    addClasses: function () {
+    addClasses: function (complete) {
         this.todoContainer.classList = 'to-do';
-        this.todoCheckbox.classList = 'to-do-checkbox';
+
+        if (complete) {
+            this.todoCheckbox.classList = 'to-do-checkbox';
+            this.todo.classList = 'strike-through opacity-50';
+        } else {
+            this.todoCheckbox.classList = 'to-do-checkbox';
+        }
+
         this.todoDeleteBtn.classList = 'to-do-delete-btn';
     },
 
     addText: function (title) {
         this.todo.textContent = title;
         this.todoDeleteBtn.textContent = 'delete';
+    },
+
+    checkIfComplete: function (complete) {
+        if (complete) {
+            this.todoCheckbox.checked = true;
+        } else {
+            this.todoCheckbox.checked = false;
+        }
     },
 
     appendTodo: function () {
@@ -48,6 +64,7 @@ const TodoDomHandler = {
 
     bindEvents: function () {
         this.todoDeleteBtn.addEventListener('click', this.deleteTodo.bind(this));
+        this.todoCheckbox.addEventListener('click', this.completeTodo.bind(this));
     },
 
     deleteTodo: function (e) {
@@ -59,6 +76,16 @@ const TodoDomHandler = {
         App.todoUser.projects.splice(projectIndex, 1, project);
         App.storeAllProjectsLocally();
         this.refreshTodos();
+    },
+
+    completeTodo: function (e) {
+        e.target.nextSibling.classList.toggle('strike-through');
+        e.target.nextSibling.classList.toggle('opacity-50');
+        const currentProject = App.todoUser.projects.filter((project) => project._title === this.getProjectTitle())[0];
+        const todoTitle = e.target.nextSibling.textContent;
+        const currentTodo = currentProject.todos.filter((todo) => todo._title === todoTitle)[0];
+        currentTodo.complete = !currentTodo.complete;
+        App.storeAllProjectsLocally();
     },
 
     getParentElement: function (element) {
