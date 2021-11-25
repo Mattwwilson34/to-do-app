@@ -14,6 +14,7 @@
     --to-do-bg: #e0e4f6;
     --active-project: #a4a8bc;
     --success: #42ba96;
+    --warning: #f0ad4e;
     --danger: #f05b5b;
 }
 
@@ -97,6 +98,9 @@ body {
     font-family: 'Nunito-Bold';
     font-size: 28px;
     text-align: center;
+    user-select: none;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
 }
 
 .project-container {
@@ -157,11 +161,31 @@ body {
     list-style-type: none;
 }
 
+.to-do-priority-circle {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    margin-left: auto;
+    background-color: var(--success);
+}
+
+.bg-color-warning {
+    background-color: var(--warning);
+}
+
+.bg-color-danger {
+    background-color: var(--danger);
+}
+
+.to-do-priority-circle:hover {
+    cursor: pointer;
+}
+
 .to-do-delete-btn {
     display: none;
     height: 25px;
     width: 75px;
-    margin-left: auto;
+    margin-left: 20px;
     margin-right: 10px;
     border: none;
     outline: none;

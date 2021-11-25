@@ -23,6 +23,7 @@ const TodoDomHandler = {
         this.todoContainer = document.createElement('div');
         this.todo = document.createElement('li');
         this.todoCheckbox = document.createElement('input');
+        this.todoPriorityCircle = document.createElement('div');
         this.todoDeleteBtn = document.createElement('button');
     },
 
@@ -39,7 +40,7 @@ const TodoDomHandler = {
         } else {
             this.todoCheckbox.classList = 'to-do-checkbox';
         }
-
+        this.todoPriorityCircle.classList = 'to-do-priority-circle';
         this.todoDeleteBtn.classList = 'to-do-delete-btn';
     },
 
@@ -58,18 +59,19 @@ const TodoDomHandler = {
 
     appendTodo: function () {
         this.appToDoContainer = document.getElementById('to-do-container');
-        this.todoContainer.append(this.todoCheckbox, this.todo, this.todoDeleteBtn);
+        this.todoContainer.append(this.todoCheckbox, this.todo, this.todoPriorityCircle, this.todoDeleteBtn);
         this.appToDoContainer.insertBefore(this.todoContainer, this.newTodoDiv);
     },
 
     bindEvents: function () {
         this.todoDeleteBtn.addEventListener('click', this.deleteTodo.bind(this));
         this.todoCheckbox.addEventListener('click', this.completeTodo.bind(this));
+        this.todoPriorityCircle.addEventListener('click', this.changePriority.bind(this));
     },
 
     deleteTodo: function (e) {
-        const project = this.getActiveProject();
-        const projectIndex = this.getIndexOfProject(App.todoUser, this.getActiveProject()._title);
+        const project = this.getActiveProjectFromStorage();
+        const projectIndex = this.getIndexOfProject(App.todoUser, this.getActiveProjectFromStorage()._title);
         const todoTitle = this.getParentElement(e.target).children[1].textContent;
         const todoIndex = this.getIndexOfTodo(project, todoTitle);
         project.todos.splice(todoIndex, 1);
@@ -78,18 +80,39 @@ const TodoDomHandler = {
         this.refreshTodos();
     },
 
+    changePriority: function (e) {
+        const currentColor = window.getComputedStyle(e.target, '').getPropertyValue('background-color');
+        this.changePriorityColor(currentColor, e.target);
+    },
+
+    changePriorityColor: function (color, targetElement) {
+        console.log(color);
+        if (color === 'rgb(66, 186, 150)') {
+            targetElement.classList.toggle('bg-color-warning');
+        } else if (color === 'rgb(240, 173, 78)') {
+            targetElement.classList.toggle('bg-color-warning');
+            targetElement.classList.toggle('bg-color-danger');
+        } else {
+            targetElement.classList.toggle('bg-color-danger');
+        }
+    },
+
     completeTodo: function (e) {
         e.target.nextSibling.classList.toggle('strike-through');
         e.target.nextSibling.classList.toggle('opacity-50');
-        const currentProject = App.todoUser.projects.filter((project) => project._title === this.getProjectTitle())[0];
+        const currentProject = this.getCurrentProject(App.todoUser.projects, this.getProjectTitle());
         const todoTitle = e.target.nextSibling.textContent;
-        const currentTodo = currentProject.todos.filter((todo) => todo._title === todoTitle)[0];
-        currentTodo.complete = !currentTodo.complete;
+        const currentTodo = this.getCurrentTodo(currentProject.todos, todoTitle);
+        this.toggleTodoCompletion(currentTodo);
         App.storeAllProjectsLocally();
     },
 
     getParentElement: function (element) {
         return element.parentElement;
+    },
+
+    getCurrentProject: function (projectArray, projectTitle) {
+        return projectArray.filter((project) => project._title === projectTitle)[0];
     },
 
     getIndexOfProject: function (user, projectTitle) {
@@ -100,12 +123,20 @@ const TodoDomHandler = {
             .indexOf(projectTitle);
     },
 
+    getCurrentTodo: function (todoArray, todoTitle) {
+        return todoArray.filter((todo) => todo._title === todoTitle)[0];
+    },
+
     getIndexOfTodo: function (project, todoTitle) {
         return project.todos
             .map(function (obj) {
                 return obj._title;
             })
             .indexOf(todoTitle);
+    },
+
+    toggleTodoCompletion: function (todo) {
+        todo.complete = !todo.complete;
     },
 
     removeTodos: function () {
@@ -119,11 +150,11 @@ const TodoDomHandler = {
         this.removeTodos();
         TodoInputDomHandler.removeTodoSymbol();
         TodoInputDomHandler.removeNewTodoInput();
-        this.renderAllProjectTodos(this.getActiveProject());
+        this.renderAllProjectTodos(this.getActiveProjectFromStorage());
         TodoInputDomHandler.render();
     },
 
-    getActiveProject: function () {
+    getActiveProjectFromStorage: function () {
         const projects = App.getProjectsFromStorage();
         const currentProject = projects.filter((project) => project._title === this.getProjectTitle());
         return currentProject[0];
