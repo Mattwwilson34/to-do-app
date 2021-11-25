@@ -12,7 +12,7 @@ const TodoDomHandler = {
     render: function (todo) {
         this.createElements();
         this.setAttributes();
-        this.addClasses(todo.complete);
+        this.addClasses(todo.complete, todo._priority);
         this.addText(todo._title);
         this.checkIfComplete(todo.complete);
         this.appendTodo();
@@ -31,16 +31,25 @@ const TodoDomHandler = {
         this.todoCheckbox.setAttribute('type', 'checkbox');
     },
 
-    addClasses: function (complete) {
+    addClasses: function (complete, priority) {
         this.todoContainer.classList = 'to-do';
 
+        // check box classes check
         if (complete) {
             this.todoCheckbox.classList = 'to-do-checkbox';
             this.todo.classList = 'strike-through opacity-50';
         } else {
             this.todoCheckbox.classList = 'to-do-checkbox';
         }
-        this.todoPriorityCircle.classList = 'to-do-priority-circle';
+        // priority circle classes check
+        if (priority === 'low') {
+            this.todoPriorityCircle.classList = 'to-do-priority-circle bg-color-success';
+        } else if (priority === 'medium') {
+            this.todoPriorityCircle.classList = 'to-do-priority-circle bg-color-warning';
+        } else {
+            this.todoPriorityCircle.classList = 'to-do-priority-circle bg-color-danger';
+        }
+
         this.todoDeleteBtn.classList = 'to-do-delete-btn';
     },
 
@@ -56,6 +65,8 @@ const TodoDomHandler = {
             this.todoCheckbox.checked = false;
         }
     },
+
+    checkPriority: function (priority) {},
 
     appendTodo: function () {
         this.appToDoContainer = document.getElementById('to-do-container');
@@ -81,8 +92,22 @@ const TodoDomHandler = {
     },
 
     changePriority: function (e) {
+        const currentProject = this.getCurrentProject(App.todoUser.projects, this.getProjectTitle());
+        const currentTodo = this.getCurrentTodo(currentProject.todos, e.target.previousSibling.textContent);
         const currentColor = window.getComputedStyle(e.target, '').getPropertyValue('background-color');
+        this.updatePriority(currentTodo);
         this.changePriorityColor(currentColor, e.target);
+        App.storeAllProjectsLocally();
+    },
+
+    updatePriority: function (todo) {
+        if (todo._priority === 'low') {
+            todo._priority = 'medium';
+        } else if (todo._priority === 'medium') {
+            todo._priority = 'high';
+        } else {
+            todo._priority = 'low';
+        }
     },
 
     changePriorityColor: function (color, targetElement) {

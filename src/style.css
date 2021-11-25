@@ -169,6 +169,10 @@ body {
     background-color: var(--success);
 }
 
+.bg-color-success {
+    background-color: var(--success);
+}
+
 .bg-color-warning {
     background-color: var(--warning);
 }
