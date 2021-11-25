@@ -5,6 +5,7 @@ const TodoInputDomHandler = {
         this.storeAppTodoContainer();
         this.createElements();
         this.setAttributes();
+        this.setLabelNames();
         this.setClasses();
         this.setText();
         this.appendElements();
@@ -17,8 +18,18 @@ const TodoInputDomHandler = {
         this.newTodoInputTitle = document.createElement('input');
         this.newTodoInputDescription = document.createElement('input');
         this.newTodoInputContaier = document.createElement('div');
+
+        //Priority inputs
+        this.newTodoInputRadioContainer = document.createElement('div');
         this.newTodoInputDueDate = document.createElement('input');
-        this.newTodoInputPriority = document.createElement('input');
+        this.newTodoInputPriorityLow = document.createElement('input');
+        this.newTodoInputPriorityMedium = document.createElement('input');
+        this.newTodoInputPriorityHigh = document.createElement('input');
+        //Priority lables
+        this.newTodoInputPriorityLableLow = document.createElement('label');
+        this.newTodoInputPriorityLabelMedium = document.createElement('label');
+        this.newTodoInputPriorityLabelHigh = document.createElement('label');
+        //
         this.newTodoInputSaveBtn = document.createElement('button');
         this.newTodoInputCancelBtn = document.createElement('button');
     },
@@ -27,9 +38,22 @@ const TodoInputDomHandler = {
         this.newTodoInputTitle.setAttribute('placeholder', 'Add task');
         this.newTodoInputDescription.setAttribute('placeholder', 'Description');
         this.newTodoInputDueDate.setAttribute('Type', 'date');
-        this.newTodoInputPriority.setAttribute('Type', 'range');
+        //Priority
+        this.newTodoInputPriorityLow.setAttribute('Type', 'radio');
+        this.newTodoInputPriorityMedium.setAttribute('Type', 'radio');
+        this.newTodoInputPriorityHigh.setAttribute('Type', 'radio');
+        this.newTodoInputPriorityLow.value = 'low';
+        this.newTodoInputPriorityMedium.value = 'medium';
+        this.newTodoInputPriorityHigh.value = 'high';
+        //
         this.newTodoInputSaveBtn.setAttribute('type', 'button');
         this.newTodoInputCancelBtn.setAttribute('type', 'button');
+    },
+
+    setLabelNames: function () {
+        this.newTodoInputPriorityLow.name = 'priority';
+        this.newTodoInputPriorityMedium.name = 'priority';
+        this.newTodoInputPriorityHigh.name = 'priority';
     },
 
     setClasses: function () {
@@ -39,12 +63,20 @@ const TodoInputDomHandler = {
         this.newTodoInputDescription.classList = 'new-to-do-input-description';
         this.newTodoInputContaier.classList = 'new-to-do-input-container';
         this.newTodoInputDueDate.classList = 'new-to-do-input-due-date';
-        this.newTodoInputPriority.classList = 'new-to-do-input-priority';
+        //Priority
+        this.newTodoInputRadioContainer.classList = 'new-to-do-input-radio-container';
+        this.newTodoInputPriorityLow.classList = 'new-to-do-input-priority';
+        this.newTodoInputPriorityMedium.classList = 'new-to-do-input-priority';
+        this.newTodoInputPriorityHigh.classList = 'new-to-do-input-priority';
+        //
         this.newTodoInputSaveBtn.classList = 'new-to-do-save-btn';
         this.newTodoInputCancelBtn.classList = 'new-to-do-cancel-btn';
     },
 
     setText: function () {
+        this.newTodoInputPriorityLableLow.textContent = 'low';
+        this.newTodoInputPriorityLabelMedium.textContent = 'medium';
+        this.newTodoInputPriorityLabelHigh.textContent = 'high';
         this.newTodoSymbol.textContent = '+';
         this.newTodoInputSaveBtn.textContent = 'Save';
         this.newTodoInputCancelBtn.textContent = 'Cancel';
@@ -77,7 +109,15 @@ const TodoInputDomHandler = {
 
     appendOnExpand: function () {
         this.newTodoDiv.append(this.newTodoInputDescription, this.newTodoInputContaier);
-        this.newTodoInputContaier.append(this.newTodoInputDueDate, this.newTodoInputPriority);
+        this.newTodoInputRadioContainer.append(
+            this.newTodoInputPriorityLow,
+            this.newTodoInputPriorityLableLow,
+            this.newTodoInputPriorityMedium,
+            this.newTodoInputPriorityLabelMedium,
+            this.newTodoInputPriorityHigh,
+            this.newTodoInputPriorityLabelHigh
+        );
+        this.newTodoInputContaier.append(this.newTodoInputDueDate, this.newTodoInputRadioContainer);
         this.appToDoContainer.append(this.newTodoInputSaveBtn, this.newTodoInputCancelBtn);
     },
 
@@ -98,7 +138,7 @@ const TodoInputDomHandler = {
         this.newTodoInputTitle.remove();
         this.newTodoInputDescription.remove();
         this.newTodoInputDueDate.remove();
-        this.newTodoInputPriority.remove();
+        this.newTodoInputPriorityLow.remove();
         this.newTodoDiv.remove();
         this.newTodoInputContaier.remove();
         this.newTodoInputSaveBtn.remove();
@@ -106,13 +146,24 @@ const TodoInputDomHandler = {
         this.render();
     },
 
+    getPriorityInputValue: function () {
+        const priorityInputs = document.querySelectorAll('.new-to-do-input-priority');
+        for (let i = 0; i < priorityInputs.length; i++) {
+            const input = priorityInputs[i];
+            if (input.checked) {
+                return input.value;
+            }
+        }
+    },
+
     storeInputValues: function () {
         const newTodoInputValues = [
             this.newTodoInputTitle.value,
             this.newTodoInputDescription.value,
             this.newTodoInputDueDate.value,
-            this.newTodoInputPriority.value,
+            this.getPriorityInputValue(),
         ];
+        console.log(newTodoInputValues);
         this.removeExpandedElements();
         TodoDomHandler.buildTodo(...newTodoInputValues);
     },

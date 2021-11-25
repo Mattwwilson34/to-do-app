@@ -111,7 +111,6 @@ const TodoDomHandler = {
     },
 
     changePriorityColor: function (color, targetElement) {
-        console.log(color);
         if (color === 'rgb(66, 186, 150)') {
             targetElement.classList.toggle('bg-color-warning');
         } else if (color === 'rgb(240, 173, 78)') {
