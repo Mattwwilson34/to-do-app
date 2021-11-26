@@ -1,11 +1,9 @@
 import { App } from '../index';
 
 class Project {
-    constructor(title, description, dueDate, priority) {
+    constructor(title, description) {
         this.title = title;
         this.description = description;
-        this.dueDate = dueDate;
-        this.priority = priority;
         this.todos = [];
     }
 
@@ -22,20 +20,6 @@ class Project {
 
     set description(value) {
         this._description = value;
-    }
-    get dueDate() {
-        return this._dueDate;
-    }
-
-    set dueDate(value) {
-        this._dueDate = value;
-    }
-    get priority() {
-        return this._priority;
-    }
-
-    set priority(value) {
-        this._priority = value;
     }
 
     store() {

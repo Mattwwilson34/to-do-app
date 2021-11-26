@@ -188,14 +188,8 @@ body {
 .to-do-delete-btn {
     display: none;
     height: 25px;
-    width: 75px;
-    margin-left: 20px;
-    margin-right: 10px;
-    border: none;
-    outline: none;
-    color: white;
-    background-color: var(--danger);
-    border-radius: 5px;
+    width: 25px;
+    margin-left: 10px;
     opacity: 0.75;
 }
 
@@ -347,7 +341,7 @@ input.to-do-checkbox {
     position: absolute;
     top: 50%;
     left: 50%;
-    height: 600px;
+    height: 450px;
     width: 500px;
     background-color: var(--to-do-bg);
     border-radius: 10px;
@@ -366,9 +360,7 @@ input.to-do-checkbox {
     align-items: center;
 }
 
-#title-input,
-#due-date-input,
-#priority-input {
+#title-input {
     height: 50px;
     width: 450px;
     outline: none;

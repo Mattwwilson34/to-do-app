@@ -1,6 +1,7 @@
 import { App } from '../index';
 import { ToDo } from './to-do-class';
 import { TodoInputDomHandler } from './todo-input-dom-handler';
+import Icon from '../icons/delete.png';
 
 const TodoDomHandler = {
     renderAllProjectTodos: function (project) {
@@ -12,6 +13,7 @@ const TodoDomHandler = {
     render: function (todo) {
         this.createElements();
         this.setAttributes();
+        this.setSources();
         this.addClasses(todo.complete, todo._priority);
         this.addText(todo._title);
         this.checkIfComplete(todo.complete);
@@ -24,11 +26,15 @@ const TodoDomHandler = {
         this.todo = document.createElement('li');
         this.todoCheckbox = document.createElement('input');
         this.todoPriorityCircle = document.createElement('div');
-        this.todoDeleteBtn = document.createElement('button');
+        this.todoDeleteBtn = document.createElement('img');
     },
 
     setAttributes: function () {
         this.todoCheckbox.setAttribute('type', 'checkbox');
+    },
+
+    setSources: function () {
+        this.todoDeleteBtn.src = Icon;
     },
 
     addClasses: function (complete, priority) {

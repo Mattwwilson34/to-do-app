@@ -17,8 +17,6 @@ const ProjectOverlayDomHandler = {
         this.formContainer = document.createElement('div');
         this.form = document.createElement('form');
         this.titleInput = document.createElement('input');
-        this.dueDateInput = document.createElement('input');
-        this.priorityInput = document.createElement('input');
         this.descriptionInput = document.createElement('textarea');
         this.btnContainer = document.createElement('div');
         this.submitBtn = document.createElement('button');
@@ -27,11 +25,6 @@ const ProjectOverlayDomHandler = {
 
     addOverlayAttributes: function () {
         this.titleInput.setAttribute('type', 'text');
-        this.dueDateInput.setAttribute('type', 'date');
-        this.priorityInput.setAttribute('type', 'range');
-        this.priorityInput.setAttribute('name', 'priority');
-        this.priorityInput.setAttribute('min', '1');
-        this.priorityInput.setAttribute('max', '3');
         this.submitBtn.setAttribute('type', 'button');
         this.cancelBtn.setAttribute('type', 'button');
     },
@@ -46,8 +39,6 @@ const ProjectOverlayDomHandler = {
         this.formContainer.id = 'overlay-form-container';
         this.form.id = 'overlay-form';
         this.titleInput.id = 'title-input';
-        this.dueDateInput.id = 'due-date-input';
-        this.priorityInput.id = 'priority-input';
         this.descriptionInput.id = 'description-input';
         this.btnContainer.id = 'overlay-btn-container';
         this.submitBtn.id = 'overlay-form-submit-btn';
@@ -63,23 +54,12 @@ const ProjectOverlayDomHandler = {
         this.overlay.append(this.formContainer);
         this.formContainer.append(this.form);
         this.btnContainer.append(this.submitBtn, this.cancelBtn);
-        this.form.append(
-            this.titleInput,
-            this.dueDateInput,
-            this.priorityInput,
-            this.descriptionInput,
-            this.btnContainer
-        );
+        this.form.append(this.titleInput, this.descriptionInput, this.btnContainer);
         document.querySelector('body').append(this.overlay);
     },
 
     storeInputValues: function () {
-        this.newProjectInputValues = [
-            this.titleInput.value,
-            this.descriptionInput.value,
-            this.dueDateInput.value,
-            this.priorityInput.value,
-        ];
+        this.newProjectInputValues = [this.titleInput.value, this.descriptionInput.value];
     },
 
     removeOverlay: function () {
