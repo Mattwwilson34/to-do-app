@@ -4,6 +4,11 @@ import { ProjectDomHandler } from './modules/project-dom-handler';
 import { TodoDomHandler } from './modules/todo-dom-handler';
 import { TodoInputDomHandler } from './modules/todo-input-dom-handler';
 
+///!Project not finished, but mneed to move on within The Odin Project.
+//todo Make todos editable.
+//todo Determine how todos will be checked for their due dates.
+//todo Set up an alert when todos are due.
+
 let App = {
     todoUser: {
         projects: [],
