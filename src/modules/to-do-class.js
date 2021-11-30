@@ -1,10 +1,12 @@
 import { App } from '../index';
+import { format } from 'date-fns';
 
 class ToDo {
-    constructor(title, description, dueDate, priority = 'low', complete = false) {
+    constructor(title, description, dueDate, dueTime, priority = 'low', complete = false) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
+        this.dueTime = dueTime;
         this.priority = priority;
         this.toDos = [];
         this.complete = complete;

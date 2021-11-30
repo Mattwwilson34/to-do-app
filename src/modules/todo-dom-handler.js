@@ -1,7 +1,8 @@
 import { App } from '../index';
 import { ToDo } from './to-do-class';
 import { TodoInputDomHandler } from './todo-input-dom-handler';
-import Icon from '../icons/delete.png';
+import Icon from '../images/delete.png';
+import { format, isEqual } from 'date-fns';
 
 const TodoDomHandler = {
     renderAllProjectTodos: function (project) {
@@ -15,7 +16,7 @@ const TodoDomHandler = {
         this.setAttributes();
         this.setSources();
         this.addClasses(todo.complete, todo._priority);
-        this.addText(todo._title);
+        this.addText(todo._title, todo._dueDate, todo._dueTime, todo.due);
         this.checkIfComplete(todo.complete);
         this.appendTodo();
         this.bindEvents();
@@ -23,10 +24,13 @@ const TodoDomHandler = {
 
     createElements() {
         this.todoContainer = document.createElement('div');
+        this.todoSubContainer1 = document.createElement('div');
+        this.todoSubContainer2 = document.createElement('div');
         this.todo = document.createElement('li');
         this.todoCheckbox = document.createElement('input');
         this.todoPriorityCircle = document.createElement('div');
         this.todoDeleteBtn = document.createElement('img');
+        this.dueDate = document.createElement('li');
     },
 
     setAttributes: function () {
@@ -39,6 +43,8 @@ const TodoDomHandler = {
 
     addClasses: function (complete, priority) {
         this.todoContainer.classList = 'to-do';
+        this.todoSubContainer1.classList = 'to-do-sub-container1';
+        this.todoSubContainer2.classList = 'to-do-sub-container2';
 
         // check box classes check
         if (complete) {
@@ -57,11 +63,13 @@ const TodoDomHandler = {
         }
 
         this.todoDeleteBtn.classList = 'to-do-delete-btn';
+        this.dueDate.classList = 'to-do-due-date';
     },
 
-    addText: function (title) {
+    addText: function (title, dueDate, dueTime, due) {
         this.todo.textContent = title;
         this.todoDeleteBtn.textContent = 'delete';
+        this.dueDate.textContent = `${due}`;
     },
 
     checkIfComplete: function (complete) {
@@ -72,11 +80,11 @@ const TodoDomHandler = {
         }
     },
 
-    checkPriority: function (priority) {},
-
     appendTodo: function () {
         this.appToDoContainer = document.getElementById('to-do-container');
-        this.todoContainer.append(this.todoCheckbox, this.todo, this.todoPriorityCircle, this.todoDeleteBtn);
+        this.todoSubContainer1.append(this.todoCheckbox, this.todo, this.todoPriorityCircle, this.todoDeleteBtn);
+        this.todoSubContainer2.append(this.dueDate);
+        this.todoContainer.append(this.todoSubContainer1, this.todoSubContainer2);
         this.appToDoContainer.insertBefore(this.todoContainer, this.newTodoDiv);
     },
 
@@ -194,8 +202,8 @@ const TodoDomHandler = {
         return document.getElementById('project-title-container').textContent;
     },
 
-    buildTodo: function (title, description, dueDate, priority) {
-        const todo = new ToDo(title, description, dueDate, priority);
+    buildTodo: function (title, description, dueDate, dueTime, priority) {
+        const todo = new ToDo(title, description, dueDate, dueTime, priority);
         todo.store(this.getProjectTitle(), todo);
     },
 };

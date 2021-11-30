@@ -2,7 +2,7 @@ import { App } from '../index';
 import { ProjectOverlayDomHandler } from './project-overlay-dom-handler';
 import { TodoDomHandler } from './todo-dom-handler';
 import { TodoInputDomHandler } from './todo-input-dom-handler';
-import Icon from '../icons/delete.png';
+import Icon from '../images/delete.png';
 
 const ProjectDomHandler = {
     render: function (project) {

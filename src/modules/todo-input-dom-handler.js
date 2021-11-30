@@ -18,10 +18,11 @@ const TodoInputDomHandler = {
         this.newTodoInputTitle = document.createElement('input');
         this.newTodoInputDescription = document.createElement('input');
         this.newTodoInputContaier = document.createElement('div');
+        this.newTodoInputDueDate = document.createElement('input');
+        this.newTodoInputDueTime = document.createElement('input');
 
         //Priority inputs
         this.newTodoInputRadioContainer = document.createElement('div');
-        this.newTodoInputDueDate = document.createElement('input');
         this.newTodoInputPriorityLow = document.createElement('input');
         this.newTodoInputPriorityMedium = document.createElement('input');
         this.newTodoInputPriorityHigh = document.createElement('input');
@@ -29,7 +30,7 @@ const TodoInputDomHandler = {
         this.newTodoInputPriorityLableLow = document.createElement('label');
         this.newTodoInputPriorityLabelMedium = document.createElement('label');
         this.newTodoInputPriorityLabelHigh = document.createElement('label');
-        //
+        //Buttons
         this.newTodoInputSaveBtn = document.createElement('button');
         this.newTodoInputCancelBtn = document.createElement('button');
     },
@@ -38,6 +39,7 @@ const TodoInputDomHandler = {
         this.newTodoInputTitle.setAttribute('placeholder', 'Add task');
         this.newTodoInputDescription.setAttribute('placeholder', 'Description');
         this.newTodoInputDueDate.setAttribute('Type', 'date');
+        this.newTodoInputDueTime.setAttribute('Type', 'time');
         //Priority
         this.newTodoInputPriorityLow.setAttribute('Type', 'radio');
         this.newTodoInputPriorityMedium.setAttribute('Type', 'radio');
@@ -63,6 +65,7 @@ const TodoInputDomHandler = {
         this.newTodoInputDescription.classList = 'new-to-do-input-description';
         this.newTodoInputContaier.classList = 'new-to-do-input-container';
         this.newTodoInputDueDate.classList = 'new-to-do-input-due-date';
+        this.newTodoInputDueTime.classList = 'new-to-do-input-due-time';
         //Priority
         this.newTodoInputRadioContainer.classList = 'new-to-do-input-radio-container';
         this.newTodoInputPriorityLow.classList = 'new-to-do-input-priority';
@@ -117,7 +120,11 @@ const TodoInputDomHandler = {
             this.newTodoInputPriorityHigh,
             this.newTodoInputPriorityLabelHigh
         );
-        this.newTodoInputContaier.append(this.newTodoInputDueDate, this.newTodoInputRadioContainer);
+        this.newTodoInputContaier.append(
+            this.newTodoInputDueDate,
+            this.newTodoInputDueTime,
+            this.newTodoInputRadioContainer
+        );
         this.appToDoContainer.append(this.newTodoInputSaveBtn, this.newTodoInputCancelBtn);
     },
 
@@ -161,9 +168,10 @@ const TodoInputDomHandler = {
             this.newTodoInputTitle.value,
             this.newTodoInputDescription.value,
             this.newTodoInputDueDate.value,
+            this.newTodoInputDueTime.value,
             this.getPriorityInputValue(),
         ];
-        console.log(newTodoInputValues);
+        console.log(this.newTodoInputDueDate);
         this.removeExpandedElements();
         TodoDomHandler.buildTodo(...newTodoInputValues);
     },
