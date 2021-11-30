@@ -171,7 +171,6 @@ const TodoInputDomHandler = {
             this.newTodoInputDueTime.value,
             this.getPriorityInputValue(),
         ];
-        console.log(this.newTodoInputDueDate);
         this.removeExpandedElements();
         TodoDomHandler.buildTodo(...newTodoInputValues);
     },

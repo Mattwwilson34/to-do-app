@@ -2,7 +2,8 @@ import { App } from '../index';
 import { ToDo } from './to-do-class';
 import { TodoInputDomHandler } from './todo-input-dom-handler';
 import Icon from '../images/delete.png';
-import { format, isEqual } from 'date-fns';
+import { format } from 'date-fns';
+import { parseISO } from 'date-fns';
 
 const TodoDomHandler = {
     renderAllProjectTodos: function (project) {
@@ -16,7 +17,8 @@ const TodoDomHandler = {
         this.setAttributes();
         this.setSources();
         this.addClasses(todo.complete, todo._priority);
-        this.addText(todo._title, todo._dueDate, todo._dueTime, todo.due);
+        this.buildDueDate(todo.dueTime, todo._dueDate);
+        this.addText(todo._title);
         this.checkIfComplete(todo.complete);
         this.appendTodo();
         this.bindEvents();
@@ -66,10 +68,13 @@ const TodoDomHandler = {
         this.dueDate.classList = 'to-do-due-date';
     },
 
-    addText: function (title, dueDate, dueTime, due) {
+    buildDueDate: function (dueTime, dueDate) {
+        this.dueDateTime = format(new Date(`${dueDate}T${dueTime}`), 'MM/dd/yyyy');
+    },
+
+    addText: function (title) {
         this.todo.textContent = title;
-        this.todoDeleteBtn.textContent = 'delete';
-        this.dueDate.textContent = `${due}`;
+        this.dueDate.textContent = this.dueDateTime;
     },
 
     checkIfComplete: function (complete) {
